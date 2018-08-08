@@ -13,12 +13,12 @@ import scala.concurrent.duration.{Duration, FiniteDuration}
 import scala.concurrent.{Await, Awaitable, Future}
 
 @Singleton
-case class FullLoadRunner @Inject()(writer: LineWriter, fieldExtractor: FileProcessor) {
+case class FullLoadRunner @Inject()(writer: LineWriter, fileProcessor: FileProcessor) {
   private val logger = Logger.getLogger(getClass.getName)
   private var batchSize = 500
 
-  def this(writer: LineWriter, fieldExtractor: FileProcessor, batchSize: Int) = {
-    this(writer, fieldExtractor)
+  def this(writer: LineWriter, fileProcessor: FileProcessor, batchSize: Int) = {
+    this(writer, fileProcessor)
     this.batchSize = batchSize
   }
 
@@ -57,7 +57,7 @@ case class FullLoadRunner @Inject()(writer: LineWriter, fieldExtractor: FileProc
     load.next match {
       case Some(nextFile) =>
         Future {
-          fieldExtractor.apply(nextFile)
+          fileProcessor.apply(nextFile)
         }
       case _ =>
         Future(None)
