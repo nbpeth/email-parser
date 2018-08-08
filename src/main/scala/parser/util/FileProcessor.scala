@@ -7,6 +7,7 @@ import parser.model.{EmailFile, EmailMessageData}
 import parser.patterns.HeaderPatterns
 import parser.reader.EmailFileReader
 import parser.config.Constants._
+
 import scala.concurrent.ExecutionContext
 
 case class FileProcessor @Inject()(reader: EmailFileReader) {
@@ -25,7 +26,7 @@ case class FileProcessor @Inject()(reader: EmailFileReader) {
     val subject = getSubject(headers)
     val date = getDate(headers)
 
-    EmailMessageData(emailFile.fileName, date, from, subject)
+    EmailMessageData(emailFile.fileName, date, from, subject).withLineBreaksRemoved
   }
 
   def stripBodyFromContentIn(emailFile: EmailFile): EmailFile = {
@@ -48,7 +49,7 @@ case class FileProcessor @Inject()(reader: EmailFileReader) {
     r + (getKeyFrom(fields) -> getValueFrom(fields))
   }
 
-  private def getSubject(headers: Map[String, String]) =
+  private def getSubject(headers: Map[String, String])() =
     headers.getOrElse(SUBJECT_HEADER, BLANK).trim()
 
   private def getDate(headers: Map[String, String]) =

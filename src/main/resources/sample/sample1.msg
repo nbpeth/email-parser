@@ -1,6 +1,9 @@
 From: John Doe <jdoe@machine.example>
 To: Mary Smith <mary@example.net>
 Subject: Saying Hello
+ on another line
+ and another line again
+ because I can
 Date: Fri, 21 Nov 1997 09:55:06 -0600
 Message-ID: <1234@local.machine.example>
 
