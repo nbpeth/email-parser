@@ -1,0 +1,24 @@
+package parser.util
+
+import java.io.{File, FileNotFoundException}
+
+import scala.collection.Iterator
+import scala.io.Source
+import parser.config.Constants.LINE_BREAK
+
+object FileUtils {
+  def getFilesFrom(path: String): Array[File] =
+    new File(path).listFiles()
+}
+
+object FileContent {
+  def apply(file: File): String = {
+    loadFileData(file.getAbsolutePath)
+      .mkString(LINE_BREAK)
+  }
+
+  @throws(classOf[FileNotFoundException])
+  def loadFileData(path: String): Iterator[String]  =
+    Source.fromFile(path)
+      .getLines()
+}
