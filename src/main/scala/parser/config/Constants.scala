@@ -9,4 +9,5 @@ object Constants {
   val FROM_HEADER = "From"
   val SUBJECT_HEADER = "Subject"
   val DATE_HEADER = "Date"
+
 }
