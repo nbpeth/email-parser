@@ -7,8 +7,17 @@ import scala.io.Source
 import parser.config.Constants.LINE_BREAK
 
 object FileUtils {
-  def getFilesFrom(path: String): Array[File] =
-    new File(path).listFiles()
+
+  def getFilesFrom(path: String): Array[File] = {
+    try{
+      new File(path).listFiles()
+    }
+    catch {
+      case _: Exception =>
+        Array[File]()
+    }
+
+  }
 }
 
 object FileContent {
